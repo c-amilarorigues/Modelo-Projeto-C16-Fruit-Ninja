@@ -1,4 +1,4 @@
-//Game States
+//Estados de Jogo
 var PLAY=1;
 var END=0;
 var gameState=1;
@@ -16,7 +16,7 @@ function preload(){
   fruit4 = loadImage("fruit4.png");
   gameOverImage = loadImage("gameover.png")
 
-  //load sound here
+  //carregue o som aqui
 }
 
 
@@ -24,15 +24,15 @@ function preload(){
 function setup() {
   createCanvas(600, 600);
   
-  //creating sword
+  //crie espada
    knife=createSprite(40,200,20,20);
    knife.addImage(knifeImage);
    knife.scale=0.7
   
-  //set collider for sword
+  //definir colisor para espada
   knife.setCollider("rectangle",0,0,40,40);
 
-  // Score variables and Groups
+  //variáveis de pontuação e grupos
   score=0;
   fruitGroup=createGroup();
   monsterGroup=createGroup();
@@ -44,32 +44,32 @@ function draw() {
   
   if(gameState===PLAY){
     
-    //Call fruits and Monster function
+    //chamar funções de frutas e monstros
     fruits();
     Monster();
     
-    // Move sword with mouse
+    //mova a espada com o mouse
     knife.y=World.mouseY;
     knife.x=World.mouseX;
   
-    // Increase score if sword touching fruit
+    //aumenta a pontuação se a espada tocar na fruta
     if(fruitGroup.isTouching(knife)){
       fruitGroup.destroyEach();
     }
     else
     {
-      // Go to end state if sword touching enemy
+      //Vá para o estado final se a espada tocar o inimigo
       if(monsterGroup.isTouching(knife)){
         gameState=END;
         
-        //add gameover sound here
+        //adicione som de fim de jogo aqui
         
         fruitGroup.destroyEach();
         monsterGroup.destroyEach();
         fruitGroup.setVelocityXEach(0);
         monsterGroup.setVelocityXEach(0);
         
-        // Change the animation of sword to gameover and reset its position
+        //Mude a animação da espada para fim de jogo e redefina sua posição
         knife.addImage(gameOverImage);
         knife.scale=2;
         knife.x=300;
@@ -79,7 +79,7 @@ function draw() {
   }
   
   drawSprites();
-  //Display score
+  //exibir pontuação
   textSize(25);
   text("Score : "+ score,250,50);
 }
@@ -90,7 +90,7 @@ function Monster(){
     monster=createSprite(400,200,20,20);
     monster.addAnimation("moving", monsterImage);
     monster.y=Math.round(random(100,550));
-    //update below give line of code for increase monsterGroup speed by 10
+    //a atualização abaixo fornece a linha de código para aumentar a velocidade do monsterGroup em 10
     monster.velocityX = -8;
     monster.setLifetime=50;
     
@@ -103,12 +103,12 @@ function fruits(){
     position = Math.round(random(1,2));
     fruit=createSprite(400,200,20,20);
     
-     //using random variable change the position of fruit, to make it more challenging
+     //usando uma variável aleatória muda a posição da fruta, para torná-la mais desafiadora
     
     if(position==1)
     {
     fruit.x=600;
-    //update below give line of code for increase fruitGroup speed by 4
+    //a atualização abaixo fornece a linha de código para aumentar a velocidade do fruitGroup em 4
     fruit.velocityX=-7
     }
     else
@@ -116,7 +116,7 @@ function fruits(){
       if(position==2){
       fruit.x=0;
       
-     //update below give line of code for increase fruitGroup speed by 4
+     //a atualização abaixo fornece a linha de código para aumentar a velocidade do fruitGroup em 4
       fruit.velocityX= 7;
       }
     }
